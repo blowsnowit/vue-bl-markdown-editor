@@ -1,0 +1,6 @@
+.*
+build/
+node_modules/
+src/
+test/
+config/
