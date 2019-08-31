@@ -5,9 +5,9 @@
       <div ref="markDownName" class="mark-down-name" @mouseenter="close=false">
         <i class="fa fa-table" title="表格"></i>
         <div class="tool-bar-box mark-down-form-box " :style="close?'display: none;':''" @click="onClick" @mouseout="xNum=0;yNum=0;">
-          {{xNum}}列 x {{yNum}}行
-          <div class="highlighted" @mousemove="mousemove">
-            <div class="unhighlighted" :style="'width: '+(xNum===0?0:(xNum*20 +(xNum - 1)*2))+'px; height: '+(yNum===0?0:(yNum*20 +(yNum - 1)*2))+'px'"></div>
+          <!--{{xNum}}列 x {{yNum}}行-->
+          <div class="unhighlighted" @mousemove="mousemove">
+            <div class="highlighted" :style="'width: '+(xNum===0?0:(xNum*20 +(xNum - 1)*2))+'px; height: '+(yNum===0?0:(yNum*20 +(yNum - 1)*2))+'px'"></div>
           </div>
         </div>
       </div>
@@ -73,6 +73,8 @@
             }
             maxY += 20+2;
           }
+
+          console.log('mousemove',x,y,this.xNum,this.yNum);
         }
       },
     }
@@ -82,16 +84,16 @@
 .table {
 
 }
-.table .highlighted{
+.table .unhighlighted{
   position: relative;
   height: 220px;
   width: 220px;
-  background: url('https://ueditor.baidu.com/ueditor/themes/default/images/unhighlighted.gif') repeat!important;
+  background: url('../../assets/images/unhighlighted.gif') repeat!important;
 }
-.table .unhighlighted{
+.table .highlighted{
   position: absolute;
   max-height: 220px;
   max-width: 220px;
-  background: url('https://ueditor.baidu.com/ueditor/themes/default/images/highlighted.gif') repeat!important;
+  background: url('../../assets/images/highlighted.gif') repeat!important;
 }
 </style>
