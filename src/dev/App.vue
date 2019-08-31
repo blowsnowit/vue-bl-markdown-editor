@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MarkDownEditor from "./components/MarkDownEditor";
+import MarkDownEditor from "../components/MarkDownEditor";
 export default {
   name: 'app',
   components: {MarkDownEditor},

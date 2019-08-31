@@ -2,7 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/dev/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -65,11 +65,14 @@ module.exports = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.entry = './src/index.js'
+  module.exports.entry = {
+    index: path.resolve(__dirname, './src/index.js')
+  }
   module.exports.output = {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    // publicPath: '/dist/',
     filename: 'vue-bl-mark-down-editor.js',
+    chunkFilename: 'js/[name].js',
     library: 'MarkDownEditor',
     libraryTarget: 'umd',
     umdNamedDefine: true
