@@ -33,30 +33,30 @@
   import '../assets/css/markdown-github.css'
   import md from '../lib/Markdown'
   //工具栏
-  const toolBars = {
-    'bold': import('./toolBar/bold.vue'), //粗体
-    'italic': import('./toolBar/italic.vue'), //斜体
-    'header': import('./toolBar/header.vue'),  //标题
-    'underline': import('./toolBar/underline.vue'), //下划线
-    'strikethrough': import('./toolBar/strikethrough.vue'), //中划线
-    'thumb-tack': import('./toolBar/thumb-tack.vue'),  //标记
-    'superscript': import('./toolBar/superscript.vue'), //上角标
-    'subscript': import('./toolBar/subscript.vue'),   //下角标
-    'align-left': import('./toolBar/align-left.vue'),  //居左
-    'align-center': import('./toolBar/align-center.vue'), //居中
-    'align-right': import('./toolBar/align-right.vue'),  //居右
-    'quote-left': import('./toolBar/quote-left.vue'),  //段落引用
-    'list-ol': import('./toolBar/list-ol.vue'),     //有序列表
-    'list-ul': import('./toolBar/list-ul.vue'),    //无须列表
-    'link': import('./toolBar/link.vue'),      //链接
-    'picture': import('./toolBar/picture.vue'),   //图片
-    'code': import('./toolBar/code.vue'),      //代码块
-    'table': import('./toolBar/table.vue'),     //表格
-    'emoji': import('./toolBar/emoji.vue'),
-    'undo': import('./toolBar/undo.vue'),     //上一步
-    'repeat': import('./toolBar/repeat.vue'),   //下一步
-    'trash': import('./toolBar/trash.vue'),    //清空
-  }
+  const toolBars = [
+    'bold', //粗体
+    'italic', //斜体
+    'header',  //标题
+    'underline', //下划线
+    'strikethrough', //中划线
+    'thumb-tack',  //标记
+    'superscript', //上角标
+    'subscript',   //下角标
+    'align-left',  //居左
+    'align-center', //居中
+    'align-right',  //居右
+    'quote-left',  //段落引用
+    'list-ol',     //有序列表
+    'list-ul',    //无须列表
+    'link',      //链接
+    'picture',   //图片
+    'code',      //代码块
+    'table',     //表格
+    'emoji',
+    'undo',     //上一步
+    'repeat',   //下一步
+    'trash',    //清空
+  ]
     export default {
         name: "mark-down-editor",
       data() {
@@ -84,10 +84,10 @@
           type: String,
           default: 'github'
         },
-        // toolBars:{  //允许显示的控件
-        //   type: Array,
-        //   default: ()=>toolBars
-        // },
+        toolBars:{  //允许显示的控件
+          type: Array,
+          default: ()=>toolBars
+        },
         placeholder:{
           type: String,
           default: '请输入内容'
@@ -146,13 +146,12 @@
 
         //初始化工具栏
         async initToolBars(){
-          for (let name in toolBars){
-            let im = toolBars[name];
-            console.log('initToolBars',name,im);
-            let instance = await this.registerComponent(im);
-            console.log(instance);
+          for (let toolBarName of this.toolBars){
+            let path = `./toolBar/${toolBarName}.vue`;
+            //异步导致插入时机不一致
+            let instance = await this.registerComponent(path);
             let obj = {};
-            obj.name = name;
+            obj.name = toolBarName;
             obj.instance = instance;
             this.addToolBar(obj);
           }
@@ -183,8 +182,8 @@
         //动态加载组件 并且挂载当前实例对象
 
         //动态注册组件（工具栏）
-        async registerComponent(im){
-          return im.then(component=>{
+        async registerComponent(path){
+          return import(`${path}`).then((component) => {
             let cmp = Vue.extend(component.default);
             return new cmp({
               data:{
@@ -192,15 +191,6 @@
               }
             });
           })
-
-          /*return import(`${path}`).then((component) => {
-            let cmp = Vue.extend(component.default);
-            return new cmp({
-              data:{
-                parent: this
-              }
-            });
-          })*/
         },
 
         // copy mavonEditor/blob/master/src/lib/core/extra-function.js
