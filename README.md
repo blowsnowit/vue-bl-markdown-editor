@@ -2,6 +2,8 @@
 
 > 一个基于markdown-it 高度可扩展的vue编辑器组件
 
+![UTOOLS1567330095009.png](https://i.loli.net/2019/09/01/9SZmIP7uiYKkBta.png)
+
 ###  安装
 ```
 $ npm install vue-bl-markdown-editor --save
@@ -78,8 +80,9 @@ config.picture = {
 - [X] 实现撤销恢复功能 
 - [X] 兼容手机
 - [X] 样式美化
+- [ ] highlight 样式引用
 - [ ] 图片上传回调配置
 - [ ] 图片粘贴上传
 - [ ] 滚动同步
 
-
+- [ ] 测试自定义工具栏
