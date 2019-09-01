@@ -4,9 +4,9 @@
     <div class="table" >
       <div ref="markDownName" class="mark-down-name" @mouseenter="close=false">
         <i class="fa fa-table" title="表格"></i>
-        <div class="tool-bar-box mark-down-form-box " :style="close?'display: none;':''" @click="onClick" @mouseout="xNum=0;yNum=0;">
+        <div class="tool-bar-box mark-down-form-box " @click="onClick" @mouseout="xNum=0;yNum=0;" :style="close?'display: none;':''">
           <!--{{xNum}}列 x {{yNum}}行-->
-          <div class="unhighlighted" @mousemove="mousemove">
+          <div class="unhighlighted" @mousemove="mousemove" :style="'background: url(\''+unhighlighted+'\')'">
             <div class="highlighted" :style="'width: '+(xNum===0?0:(xNum*20 +(xNum - 1)*2))+'px; height: '+(yNum===0?0:(yNum*20 +(yNum - 1)*2))+'px'"></div>
           </div>
         </div>
@@ -24,7 +24,6 @@
           close: false,
           xNum: 0,
           yNum: 0,
-
         }
       },
       methods: {
@@ -88,12 +87,12 @@
   position: relative;
   height: 220px;
   width: 220px;
-  background: url('../../assets/images/unhighlighted.gif') repeat!important;
+  background: url(data:image/gif;base64,R0lGODlhFgAWAKECAPj4+Onp6f///////yH5BAEKAAIALAAAAAAWABYAAAJAlI+pFu0P3wmg2otBm7nbzXgeKFDAiaYqaaouyr6yFnCzG99rHepp7jsBg0NfUXe8JWdLGSsChUyiVN7iis1mCwA7) repeat!important;
 }
 .table .highlighted{
   position: absolute;
   max-height: 220px;
   max-width: 220px;
-  background: url('../../assets/images/highlighted.gif') repeat!important;
+  background: url(data:image/gif;base64,R0lGODlhFgAWAKECAN3q+8PZ/////////yH5BAEKAAIALAAAAAAWABYAAAJAlI+pFu0P3wmg2otBm7nbzXgeKFDAiaYqaaouyr6yFnCzG99rHepp7jsBg0NfUXe8JWdLGSsChUyiVN7iis1mCwA7) repeat!important;
 }
 </style>

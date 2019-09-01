@@ -30,8 +30,8 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import 'font-awesome/css/font-awesome.min.css'
-  import '../assets/css/markdown-github.css'
-  import md from '../lib/Markdown'
+  import 'github-markdown-css'
+  import md from './lib/Markdown'
   //工具栏
   const toolBars = [
     'bold', //粗体
@@ -113,9 +113,9 @@
       },
       created(){
         //引入样式
-        if (this.theme && this.theme !== ''){
+        /*if (this.theme && this.theme !== ''){
           import(`../assets/css/markdown-${this.theme}.css`);
-        }
+        }*/
         this.md = md;
         if (typeof window !== 'undefined') {
           window.markDown = md;

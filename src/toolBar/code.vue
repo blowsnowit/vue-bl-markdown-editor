@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import hljsLangs from '../../core/hljs/lang.hljs.js'
+  import hljsLangs from '../core/hljs/lang.hljs.js'
     export default {
       name: "code",
       data() {
