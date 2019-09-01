@@ -35,7 +35,7 @@
           let tbody = '';
           for (let i = 1;i<=this.xNum;i++){
             ths += '标题头'+i+'|';
-            hr += '-'+'|';
+            hr += '---'+'|';
           }
           for (let i = 0;i<this.yNum;i++){
             let tbodyX = '|';
