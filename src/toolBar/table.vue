@@ -6,7 +6,7 @@
         <i class="fa fa-table" title="表格"></i>
         <div class="tool-bar-box mark-down-form-box " @click="onClick" @mouseout="xNum=0;yNum=0;" :style="close?'display: none;':''">
           <!--{{xNum}}列 x {{yNum}}行-->
-          <div class="unhighlighted" @mousemove="mousemove" :style="'background: url(\''+unhighlighted+'\')'">
+          <div class="unhighlighted" @mousemove="mousemove" >
             <div class="highlighted" :style="'width: '+(xNum===0?0:(xNum*20 +(xNum - 1)*2))+'px; height: '+(yNum===0?0:(yNum*20 +(yNum - 1)*2))+'px'"></div>
           </div>
         </div>

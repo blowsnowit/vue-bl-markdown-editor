@@ -75,6 +75,12 @@ config.picture = {
   callback: (file)=>{return 'url';}
 };
 ```
+#### 自定义工具栏
+```javascript
+let editor = this.$refs.editor;
+let toolBar1 = editor.registerToolBarComponent('demo1',require('./toolBar/Demo1.vue'));
+editor.addToolBar(toolBar1/*,0 插入位置*/);
+```
 
 
 ## TODO
@@ -82,9 +88,14 @@ config.picture = {
 - [X] 实现撤销恢复功能 
 - [X] 兼容手机
 - [X] 样式美化
+
 - [ ] highlight 样式引用
 - [ ] 图片上传回调配置
 - [ ] 图片粘贴上传
 - [ ] 滚动同步
 
-- [ ] 测试自定义工具栏
+### 测试
+- [x] 自定义工具栏
+- [x] 表情配置
+- [ ] 图片上传
+- [ ] 粘贴上传,拖入上传

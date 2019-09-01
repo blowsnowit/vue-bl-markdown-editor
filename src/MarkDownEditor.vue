@@ -147,18 +147,21 @@
         },
 
         //初始化工具栏
-        async initToolBars(){
+        initToolBars(){
           for (let toolBarName of this.toolBars){
             let path = `./toolBar/${toolBarName}.vue`;
-            //异步导致插入时机不一致
-            let instance = await this.registerComponent(path);
-            let obj = {};
-            obj.name = toolBarName;
-            obj.instance = instance;
-            this.addToolBar(obj);
+            console.log();
+            this.addToolBarByPath(toolBarName,path);
           }
         },
 
+        //注册后在添加
+        addToolBarByPath(name,path){
+          //异步导致插入时机不一致
+          let component = require(`${path}`);
+          let obj = this.registerToolBarComponent(name,component);
+          this.addToolBar(obj);
+        },
         /**
          * 添加工具栏
          * @param toolBar name instance
@@ -184,15 +187,17 @@
         //动态加载组件 并且挂载当前实例对象
 
         //动态注册组件（工具栏）
-        async registerComponent(path){
-          return import(`${path}`).then((component) => {
-            let cmp = Vue.extend(component.default);
-            return new cmp({
-              data:{
-                parent: this
-              }
-            });
-          })
+        registerToolBarComponent(name,component){
+          let cmp = Vue.extend(component.default);
+          let instance = new cmp({
+            data:{
+              parent: this
+            }
+          });
+          let obj = {};
+          obj.name = name;
+          obj.instance = instance;
+          return obj;
         },
 
         // copy mavonEditor/blob/master/src/lib/core/extra-function.js
