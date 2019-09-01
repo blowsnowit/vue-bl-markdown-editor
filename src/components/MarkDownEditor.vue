@@ -117,7 +117,9 @@
           import(`../assets/css/markdown-${this.theme}.css`);
         }
         this.md = md;
-        window.markDown = md;
+        if (typeof window !== 'undefined') {
+          window.markDown = md;
+        }
 
         //添加默认工具栏
         //对象 名字 图标样式 类型  点击事件
