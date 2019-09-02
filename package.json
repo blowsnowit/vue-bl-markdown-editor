@@ -9,6 +9,10 @@
   "files": [
     "dist/*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blowsnowit/vue-bl-markdown-editor.git"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build-html": "cross-env NODE_ENV=production webpack --progress --hide-modules",
