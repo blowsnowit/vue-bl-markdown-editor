@@ -1,5 +1,5 @@
 <template>
-    <div class="mark-down-editor">
+    <div class="mark-down-editor" :style="'height: '+height+'px;'">
       <div class="tool-bar" v-show="isShowToolBar">
         <span v-show="allToolBars.length<=0">工具栏初始化ing</span>
         <span v-for="(toolBar,index) in allToolBars" :key="index" :ref="toolBar.name"></span>
@@ -382,9 +382,7 @@
 </script>
 
 <style>
-.mark-down-editor {
 
-}
 /*工具栏*/
 .mark-down-editor .tool-bar{
   box-shadow: 0 0px 3px rgba(0,0,0,0.157), 0 0px 3px rgba(0,0,0,0.227);
@@ -457,9 +455,13 @@
 /*endregion*/
 
 
-
+.mark-down-editor {
+  display: flex;
+  flex-direction: column;
+}
 .mark-down-editor .container{
   display: flex;
+  flex: 1;
 }
 .mark-down-editor .container.container-column{
   flex-direction: column;
@@ -469,7 +471,7 @@
   /*padding: 8px 25px 15px 25px;*/
   box-shadow: 0 0px 3px rgba(0,0,0,0.157), 0 0px 3px rgba(0,0,0,0.227);
   width: 50%;
-  height: 80vh;
+  height: 100%;
   background: #fff;
 }
 .mark-down-editor .container  .editor{
