@@ -28,6 +28,11 @@ $ npm install vue-bl-markdown-editor --save
         }
     })
 ```
+### 配置要求
+```html
+<!--本组件使用font-awesome字体图标库，请于index.html提前引入-->
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+```
 
 ### 配置
 |名称|类型|默认值|描述|
@@ -95,6 +100,10 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 |input|内容|输入内容|
 |ready|markdownit|加载完毕|
 
+### 高级扩展
+- 允许自行调用markdownit 注册插件 （从ready事件中获取/直接从ref中获取）
+
+
 ## TODO
 - [X] 基础工具栏
 - [X] 实现撤销恢复功能 
@@ -112,7 +121,3 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 - [ ] 图片上传
 - [ ] 粘贴上传,拖入上传
 
-
-### 记录
-#### 2019-9-2
-- v-model 绑定

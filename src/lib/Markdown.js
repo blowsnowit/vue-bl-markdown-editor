@@ -24,12 +24,13 @@ const insert = require('markdown-it-ins')
 const mark = require('markdown-it-mark')
 // taskLists
 const taskLists = require('markdown-it-task-lists')
-// container
+// container 用于创建自定义的块级容器
 const container = require('markdown-it-container')
 //
 const toc = require('markdown-it-toc')
 // math katex
 const katex = require('markdown-it-katex-external');
+//图片预览
 const miip = require('markdown-it-images-preview');
 
 const mihe = require('markdown-it-highlightjs-external');
@@ -100,7 +101,6 @@ md.use(mihe, hljs_opts)
   .use(footnote)
   .use(insert)
   .use(mark)
-  .use(container)
   .use(miip)
   .use(katex)
   .use(taskLists)

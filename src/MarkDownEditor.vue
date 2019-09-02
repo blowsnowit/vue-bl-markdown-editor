@@ -29,7 +29,6 @@
 
 <script type="text/ecmascript-6">
   import Vue from 'vue'
-  import 'font-awesome/css/font-awesome.min.css'
   import 'github-markdown-css'
 
   import hljs from 'highlight.js';
@@ -61,6 +60,7 @@
     'undo',     //上一步
     'repeat',   //下一步
     'trash',    //清空
+    'about',   //关于
   ]
     export default {
         name: "mark-down-editor",
