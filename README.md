@@ -37,8 +37,13 @@ $ npm install vue-bl-markdown-editor --save
 ### 配置
 |名称|类型|默认值|描述|
 |---|---|---|---|
-|toolBars|Array|见下面|工具栏,排序和显示|
 |placeholder|String|请输入内容|提示文本|
+|height|Number|500|编辑器高度|
+|isShowToolBar|Boolean|true|是否显示工具栏|
+|isShowToolBarRight|Boolean|true|是否显示右侧工具栏|
+|showMode|String|edit|显示模式，edit,see 编辑/预览模式,isSplit true下无效|
+|isShowSplit|Boolean|true|是否分屏，手机只可显示一个，此状态无效|
+|toolBars|Array|见下面|工具栏,排序和显示|
 |config|Object|见下面|工具栏的配置|
 
 #### 工具栏
@@ -66,6 +71,7 @@ $ npm install vue-bl-markdown-editor --save
 |undo|上一步|
 |repeat|下一步|
 |trash|清空|
+|about|关于，希望保留|
 
 #### 工具栏配置
 ```javascript
@@ -109,8 +115,8 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 - [X] 实现撤销恢复功能 
 - [X] 兼容手机
 - [X] 样式美化
-
-- [ ] highlight 样式引用
+- [X] 本项目中打包dev演示页面
+- [ ] highlight 样式引用（*）
 - [ ] 图片上传回调配置
 - [ ] 图片粘贴上传
 - [ ] 滚动同步

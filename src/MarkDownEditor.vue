@@ -1,12 +1,12 @@
 <template>
     <div class="mark-down-editor">
-      <div class="tool-bar">
+      <div class="tool-bar" v-show="isShowToolBar">
         <span v-show="allToolBars.length<=0">工具栏初始化ing</span>
         <span v-for="(toolBar,index) in allToolBars" :key="index" :ref="toolBar.name"></span>
-        <div class="tool-right">
+        <div class="tool-right" v-show="isShowToolBarRight">
           <!--预览/编辑模式-->
           <span class="active" v-if="mode === 'edit'" @click="mode = 'see'"><i class="fa fa-eye-slash" title="编辑"></i> </span>
-          <span v-else @click="mode = 'edit'"><i class="fa fa-eye" title="预览"></i></span>
+          <span v-else-if="mode === 'see'" @click="mode = 'edit'"><i class="fa fa-eye" title="预览"></i></span>
           <template v-if="!isMobile">
             <!--双栏模式 pc显示-->
             <span @click="isTwo = !isTwo"><i class="fa fa-columns" title="双栏"></i> </span>
@@ -100,6 +100,26 @@
         placeholder:{
           type: String,
           default: '请输入内容'
+        },
+        height:{
+          type: Number,
+          default: 500
+        },
+        isShowToolBar:{
+          type: Boolean,
+          default: true
+        },
+        isShowToolBarRight:{
+          type: Boolean,
+          default: true
+        },
+        showMode:{
+          type: String,
+          default: 'edit'
+        },
+        isShowSplit:{
+          type: Boolean,
+          default: true
         }
       },
       watch:{
@@ -139,7 +159,9 @@
         //对象 名字 图标样式 类型  点击事件
         this.initToolBars();
 
-
+        //初始化数据
+        this.isTwo = this.isShowSplit;
+        this.mode = this.showMode;
         //查询是不是手机
         this.isMobile = this.checkIsMobile();
         if (this.isMobile){
