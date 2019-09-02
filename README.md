@@ -63,18 +63,18 @@ $ npm install vue-bl-markdown-editor --save
 |trash|清空|
 
 #### 工具栏配置
-####### 配置多个表情
 ```javascript
-config.emojis = [{name:'test',datas:['1','2']}];
+config = {
+  // 配置多个表情
+  emojis:[{name:'test',datas:['1','2']}],
+  // 配置图片上传
+  picture:{
+    // 需要传回去上传后的路径
+    callback: (file)=>{return 'url';}
+  }
+}
 ```
 
-####### 配置图片上传
-```javascript
-config.picture = {
-  // 需要传回去上传后的路径
-  callback: (file)=>{return 'url';}
-};
-```
 #### 自定义工具栏
 ```javascript
 let editor = this.$refs.editor;
@@ -82,6 +82,18 @@ let toolBar1 = editor.registerToolBarComponent('demo1',require('./toolBar/Demo1.
 editor.addToolBar(toolBar1/*,0 插入位置*/);
 ```
 
+### 方法
+|名称|参数|描述|
+|---|---|---|
+|registerToolBarComponent|组件名,组件|动态注册组件作为工具栏，使用方法看上|
+|addToolBar|registerToolBarComponent返回的实例化组件,添加位置（默认最后）|添加工具栏组件|
+
+
+### 事件
+|名称|参数|描述|
+|---|---|---|
+|input|内容|输入内容|
+|ready|markdownit|加载完毕|
 
 ## TODO
 - [X] 基础工具栏
@@ -99,3 +111,8 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 - [x] 表情配置
 - [ ] 图片上传
 - [ ] 粘贴上传,拖入上传
+
+
+### 记录
+#### 2019-9-2
+- v-model 绑定

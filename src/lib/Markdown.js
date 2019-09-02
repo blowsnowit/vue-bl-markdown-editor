@@ -34,12 +34,14 @@ const miip = require('markdown-it-images-preview');
 
 const mihe = require('markdown-it-highlightjs-external');
 import hljsLangs from '../core/hljs/lang.hljs.js'
+const hljs = require('highlight.js');
 const missLangs = {};
 const needLangs = [];
 const hljs_opts = {
   hljs: 'auto',
   highlighted: true,
   langCheck: function(lang) {
+    console.log(langCheck);
     if (lang && hljsLangs[lang] && !missLangs[lang]) {
       missLangs[lang] = 1;
       needLangs.push(hljsLangs[lang])
@@ -56,6 +58,8 @@ const defaultConfig = {
   typographer: true,
   quotes: '“”‘’',
   highlight: function (str, lang) {
+    str = str.replace(/&lt;/g, "<");
+    str = str.replace(/&gt;/g, ">");
     console.log('highlight',str, lang);
     if (lang && hljsLangs[lang]) {
       return '<pre><div class="hljs"><code class="' + lang + '">' + md.utils.escapeHtml(str) + '</code></div></pre>';

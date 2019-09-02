@@ -31,7 +31,12 @@
   import Vue from 'vue'
   import 'font-awesome/css/font-awesome.min.css'
   import 'github-markdown-css'
+
+  import hljs from 'highlight.js';
+  import 'highlight.js/styles/monokai-sublime.css';
   import md from './lib/Markdown'
+
+
   //工具栏
   const toolBars = [
     'bold', //粗体
@@ -74,6 +79,10 @@
         }
       },
       props:{
+        value:{
+          type: String,
+          default: null
+        },
         config:{  //自动合并配置文件
           type: Object,
           default: ()=>{
@@ -94,8 +103,12 @@
         }
       },
       watch:{
+        value(val){
+          this.content = val;
+        },
         content(val){
           this.render(val);
+          this.$emit('input',val);
 
           if (this.isHistoryDo){  //拦截一下撤销导致的问题
             this.isHistoryDo = false;
@@ -116,6 +129,7 @@
         /*if (this.theme && this.theme !== ''){
           import(`../assets/css/markdown-${this.theme}.css`);
         }*/
+        this.content = this.value;
         this.md = md;
         if (typeof window !== 'undefined') {
           window.markDown = md;
@@ -131,6 +145,8 @@
         if (this.isMobile){
           this.isTwo = false;
         }
+
+        this.$emit('ready',md);
       },
       methods: {
         //根据分辨率获取 不准确，只为了兼容显示
