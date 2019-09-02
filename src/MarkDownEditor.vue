@@ -3,13 +3,14 @@
       <div class="tool-bar" v-show="isShowToolBar">
         <span v-show="allToolBars.length<=0">工具栏初始化ing</span>
         <span v-for="(toolBar,index) in allToolBars" :key="index" :ref="toolBar.name"></span>
+        <div style="flex: 1;"></div>
         <div class="tool-right" v-show="isShowToolBarRight">
           <!--预览/编辑模式-->
-          <span class="active" v-if="mode === 'edit'" @click="mode = 'see'"><i class="fa fa-eye-slash" title="编辑"></i> </span>
-          <span v-else-if="mode === 'see'" @click="mode = 'edit'"><i class="fa fa-eye" title="预览"></i></span>
+          <span class="active" v-if="mode === 'edit'" @click.prevent="mode = 'see'"><i class="fa fa-eye-slash" title="编辑"></i> </span>
+          <span v-else-if="mode === 'see'" @click.prevent="mode = 'edit'"><i class="fa fa-eye" title="预览"></i></span>
           <template v-if="!isMobile">
             <!--双栏模式 pc显示-->
-            <span @click="isTwo = !isTwo"><i class="fa fa-columns" title="双栏"></i> </span>
+            <span @click.prevent="isTwo = !isTwo"><i class="fa fa-columns" title="双栏"></i> </span>
           </template>
 
         </div>
@@ -405,13 +406,11 @@
   cursor: pointer;
 }
 .mark-down-editor .tool-bar .tool-right{
-  flex: 1;
-  text-align: right;
+
 }
 .mark-down-editor .tool-bar .tool-right > span{
   margin-right: 10px;
 }
-
 .mark-down-editor .tool-bar>div .mark-down-name{
   position: relative;
 }
