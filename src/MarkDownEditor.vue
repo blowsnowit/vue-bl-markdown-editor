@@ -180,7 +180,7 @@
       methods: {
         //根据分辨率获取 不准确，只为了兼容显示
         checkIsMobile(){
-          if (screen.width>=992){
+          if (document.documentElement.clientWidth>=992){
             return false;
           }
           return true;
