@@ -2,7 +2,7 @@
 
 > 一个基于markdown-it 高度可扩展的vue编辑器组件
 
-> [演示站](https://blowsnowit.github.io/vue-bl-markdown-editor-test/dist/)
+> [演示站](https://blowsnowit.github.io/vue-bl-markdown-editor/html/)
 
 ![UTOOLS1567330095009.png](https://i.loli.net/2019/09/01/9SZmIP7uiYKkBta.png)
 
