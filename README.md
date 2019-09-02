@@ -38,7 +38,7 @@ $ npm install vue-bl-markdown-editor --save
 |名称|类型|默认值|描述|
 |---|---|---|---|
 |placeholder|String|请输入内容|提示文本|
-|height|Number/String|500|编辑器高度|
+|height|Number|500|编辑器高度|
 |isShowToolBar|Boolean|true|是否显示工具栏|
 |isShowToolBarRight|Boolean|true|是否显示右侧工具栏|
 |showMode|String|edit|显示模式，edit,see 编辑/预览模式,isSplit true下无效|

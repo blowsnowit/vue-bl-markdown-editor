@@ -1,5 +1,5 @@
 <template>
-    <div class="mark-down-editor" :style="'height: '+(typeof height === 'number')? (height+'px;'):height">
+    <div class="mark-down-editor"  :style="'height: '+getHeightStr">
       <div class="tool-bar" v-show="isShowToolBar">
         <span v-show="allToolBars.length<=0">工具栏初始化ing</span>
         <span v-for="(toolBar,index) in allToolBars" :key="index" :ref="toolBar.name"></span>
@@ -169,6 +169,12 @@
         }
 
         this.$emit('ready',md);
+      },
+      computed:{
+        getHeightStr(){
+          if (typeof this.height === 'number') return this.height+'px';
+          return this.height;
+        }
       },
       methods: {
         //根据分辨率获取 不准确，只为了兼容显示
@@ -461,7 +467,7 @@
 }
 .mark-down-editor .container{
   display: flex;
-  flex: 1;
+  height: 100%;
 }
 .mark-down-editor .container.container-column{
   flex-direction: column;
@@ -471,7 +477,11 @@
   /*padding: 8px 25px 15px 25px;*/
   box-shadow: 0 0px 3px rgba(0,0,0,0.157), 0 0px 3px rgba(0,0,0,0.227);
   width: 50%;
+  height: 100%;
   background: #fff;
+}
+.mark-down-editor .container .box.markdown-body{
+  overflow: auto;
 }
 .mark-down-editor .container  .editor{
   width: 99%;
