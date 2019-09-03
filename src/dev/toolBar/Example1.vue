@@ -16,7 +16,8 @@
       },
       methods: {
         onClick() {
-          alert('demo1')
+          //在当前编辑器的选择位置插入文本
+          this.parent.insertContent('~~','example1','~~');
         }
       },
     }

@@ -103,7 +103,7 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 |---|---|---|
 |registerToolBarComponent|组件名,组件|动态注册组件作为工具栏，使用方法看上|
 |addToolBar|registerToolBarComponent返回的实例化组件,添加位置（默认最后）|添加工具栏组件|
-
+|insertContent|前缀,内容,后缀,是否强制替换内容,是否插入的时候选择|插入内容|
 
 ### 事件
 |名称|参数|描述|
