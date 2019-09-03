@@ -1,3 +1,5 @@
+@[toc](目录)
+
 # vue-bl-markdown-editor
 
 > 一个基于markdown-it 高度可扩展的vue编辑器组件
@@ -45,7 +47,7 @@ $ npm install vue-bl-markdown-editor --save
 |isShowSplit|Boolean|true|是否分屏，手机只可显示一个，此状态无效|
 |toolBars|Array|见下面|工具栏,排序和显示|
 |config|Object|见下面|工具栏的配置|
-
+|isSyncScroll|Boolean|true|是否同步滚动|
 #### 工具栏
 > 开发工具栏例子查看 src/dev/toolBar
 

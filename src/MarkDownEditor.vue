@@ -129,6 +129,10 @@
         isShowSplit:{
           type: Boolean,
           default: true
+        },
+        isSyncScroll:{  //是否同步滚动
+          type: Boolean,
+          default: true
         }
       },
       watch:{
@@ -404,10 +408,12 @@
         },
         //滚动编辑器事件
         onScrollEditor(event){
+          if (!this.isSyncScroll) return;
           scrollLink(event,'editor',this.$refs.editor,this.$refs.preview);
         },
         //滚动预览事件
         onScrollPreview(){
+          if (!this.isSyncScroll) return;
           scrollLink(event,'preview',this.$refs.editor,this.$refs.preview);
         }
         //endregion
