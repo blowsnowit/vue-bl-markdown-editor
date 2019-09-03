@@ -116,7 +116,7 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 - [X] 兼容手机
 - [X] 样式美化
 - [X] 本项目中打包dev演示页面
-- [ ] highlight 样式引用（*）
+- [X] highlight 样式引用（*）
 - [ ] 图片上传回调配置
 - [ ] 图片粘贴上传
 - [ ] 滚动同步

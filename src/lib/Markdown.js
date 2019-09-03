@@ -33,7 +33,9 @@ const katex = require('markdown-it-katex-external');
 //图片预览
 const miip = require('markdown-it-images-preview');
 
-const mihe = require('markdown-it-highlightjs-external');
+// const mhljs = require('markdown-it-highlightjs');
+//
+// const mihe = require('markdown-it-highlightjs-external');
 import hljsLangs from '../core/hljs/lang.hljs.js'
 const hljs = require('highlight.js');
 const missLangs = {};
@@ -62,10 +64,15 @@ const defaultConfig = {
     str = str.replace(/&lt;/g, "<");
     str = str.replace(/&gt;/g, ">");
     console.log('highlight',str, lang);
-    if (lang && hljsLangs[lang]) {
-      return '<pre><div class="hljs"><code class="' + lang + '">' + md.utils.escapeHtml(str) + '</code></div></pre>';
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return '<pre class="hljs"><code>' +
+          hljs.highlight(lang, str, true).value +
+          '</code></pre>';
+      } catch (__) {}
     }
-    return '<pre><code class="' + lang + '">' + md.utils.escapeHtml(str) + '</code></pre>';
+
+    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
   }
 }
 const md = new markdownIt(defaultConfig);
@@ -88,8 +95,7 @@ md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
 };
 
 
-md.use(mihe, hljs_opts)
-  .use(emoji)
+md.use(emoji)
   .use(sup)
   .use(sub)
   .use(container)
@@ -105,5 +111,6 @@ md.use(mihe, hljs_opts)
   .use(katex)
   .use(taskLists)
   .use(toc)
+  // .use(mhljs)
 
 export default md;

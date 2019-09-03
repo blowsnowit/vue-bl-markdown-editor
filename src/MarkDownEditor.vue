@@ -32,10 +32,8 @@
   import Vue from 'vue'
   import 'github-markdown-css'
 
-  import hljs from 'highlight.js';
-  import 'highlight.js/styles/monokai-sublime.css';
   import md from './lib/Markdown'
-
+  import 'highlight.js/styles/atom-one-dark.css'
 
   //工具栏
   const toolBars = [
@@ -493,7 +491,15 @@
   font-family: Menlo, "Ubuntu Mono", Consolas, "Courier New", "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
 }
 
-
+.markdown-body .hljs-left{
+  text-align: left;
+}
+.markdown-body .hljs-center{
+  text-align: center;
+}
+.markdown-body .hljs-right{
+  text-align: right;
+}
 .mark-down-render-box{
 
 }
