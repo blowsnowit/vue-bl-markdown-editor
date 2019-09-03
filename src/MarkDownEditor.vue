@@ -20,10 +20,15 @@
           <textarea spellcheck="false" :placeholder="placeholder" ref="editor" v-model="content" class="editor"
                     @input="inputContentHandler"
                     @keydown.tab="keydownTabHandler"
-                    @keydown.enter="contentEnterHandler">
+                    @keydown.enter="contentEnterHandler"
+                    @scroll="onScrollEditor">
           </textarea>
         </div>
-        <div v-show="mode === 'see' || isTwo" class="box markdown-body" v-html="contentHtml" :style="isTwo?'width: 50%':'width: 100%;'">
+        <div v-show="mode === 'see' || isTwo" class="box markdown-body"
+             ref="preview"
+             v-html="contentHtml"
+             :style="isTwo?'width: 50%':'width: 100%;'"
+             @scroll="onScrollPreview">
 
         </div>
       </div>
@@ -35,6 +40,9 @@
   import 'github-markdown-css'
 
   import md from './lib/Markdown'
+  import {
+    scrollLink
+  } from './lib/MarkdownFunction'
   import 'highlight.js/styles/atom-one-dark.css'
 
   //工具栏
@@ -394,7 +402,14 @@
           event.preventDefault();
           this.insertContent('  ','','',false);
         },
-
+        //滚动编辑器事件
+        onScrollEditor(event){
+          scrollLink(event,'editor',this.$refs.editor,this.$refs.preview);
+        },
+        //滚动预览事件
+        onScrollPreview(){
+          scrollLink(event,'preview',this.$refs.editor,this.$refs.preview);
+        }
         //endregion
       },
     }

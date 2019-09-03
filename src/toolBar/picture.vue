@@ -60,6 +60,9 @@
             //某些chrome版本使用的是event.originalEvent
             let clipboardData = (event.clipboardData || event.originalEvent.clipboardData);
             let file = this.getFiles(clipboardData);
+            if (file==null){
+              return;
+            }
             console.log('onPaste',file);
             this.uploadFile(file,'paste');
           }
@@ -93,13 +96,14 @@
                 item = items[i];
               }
             }
-            event.preventDefault();
             if (item && item.kind === 'file') {
+              event.preventDefault();
               let file = item.getAsFile();
               return file;
             }
           }
         },
+
         uploadFile(file,from){
           this.config.uploadCallback(file,file).then(data=>{
             console.log('上传完毕回调',data);
