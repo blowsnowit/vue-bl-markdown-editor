@@ -83,7 +83,13 @@ config: {
   // 配置图片上传
   picture:{
     // 需要传回去上传后的路径
-    callback: (file)=>{return 'url';}
+    // from paste/drag/upload 粘贴/拖拽/上传
+    // 回调 异步请使用promise 案例看 src/dev/App.vue 
+    callback: (file,from)=>{
+      return new Promise(resolve => {
+        resolve({name:'',url: ''});
+      });
+    }
   }
 }
 toolBars:[
@@ -122,17 +128,19 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 - [X] 样式美化
 - [X] 本项目中打包dev演示页面
 - [X] highlight 样式引用（*）
-- [ ] 图片上传回调配置
-- [ ] 图片粘贴上传
+- [X] 图片上传回调配置
+- [X] 图片粘贴上传
+- [x] 图片拖拽上传
 - [ ] 滚动同步
-- [ ] 自定义录音工具栏组件
+- [ ] 自定义录音工具栏组件(*)
 ### 测试
 - [x] 自定义工具栏
 - [x] 表情配置
-- [ ] 图片上传
-- [ ] 粘贴上传,拖入上传
+- [X] 图片上传
+- [X] 粘贴上传
+- [x] 拖入上传
 
-
+希望大家一起开发好用的工具栏吧
 
 ## 赞助
 ![UTOOLS1567434353534.png](https://i.loli.net/2019/09/02/vrJgXxpKmnHBLyD.png)

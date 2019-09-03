@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <mark-down-editor ref="editor" v-model="content" height="95vh" :config="config" :toolBars="toolBars"></mark-down-editor>
+    <mark-down-editor ref="editor" v-model="content" height="95vh" :config="config"></mark-down-editor>
   </div>
 </template>
 
 <script>
-
+import http from './utils/axios';
 export default {
   name: 'app',
   data() {
@@ -17,12 +17,12 @@ export default {
         // 配置图片上传
         picture:{
           // 需要传回去上传后的路径
-          callback: (file)=>{return 'url';}
+          uploadCallback: this.upload
         }
       },
-      toolBars:[
-        'about','bold','italic'
-      ]
+      // toolBars:[
+      //   'about','bold','italic'
+      // ]
     }
   },
   mounted(){
@@ -35,6 +35,23 @@ export default {
     //添加工具栏2
     let toolBar2 = editor.registerToolBarComponent('demo2',require('./toolBar/Example2.vue'));
     editor.addToolBar(toolBar2);
+  },
+  methods: {
+    upload(file,from) {
+      console.log('upload',file);
+      let data = new FormData();
+      data.append('smfile',file);
+      //请自行解决跨域问题
+      //此处仅限测试使用
+      return new Promise(resolve => {
+        http.requestPost({
+          api: "https://sm.ms/api/upload",
+          param: data
+        }).then(response=>{
+          resolve({url: response.data.url,name: response.data.filename});
+        })
+      })
+    }
   },
 }
 </script>

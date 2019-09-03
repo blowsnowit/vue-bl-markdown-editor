@@ -63,7 +63,7 @@ const defaultConfig = {
   highlight: function (str, lang) {
     str = str.replace(/&lt;/g, "<");
     str = str.replace(/&gt;/g, ">");
-    console.log('highlight',str, lang);
+    // console.log('highlight',str, lang);
     if (lang && hljs.getLanguage(lang)) {
       try {
         return '<pre class="hljs"><code>' +

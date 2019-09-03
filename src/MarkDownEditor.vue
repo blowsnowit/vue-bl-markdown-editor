@@ -17,8 +17,10 @@
       </div>
       <div class="container" :class="isTwo?'':'container-column'">
         <div v-show="mode === 'edit' || isTwo" class="box" :style="isTwo?'width: 50%':'width: 100%;'">
-          <textarea spellcheck="false" :placeholder="placeholder" ref="editor" v-model="content" class="editor" @input="inputContentHandler" @keydown.tab="keydownTabHandler" @keydown.enter="contentEnterHandler">
-
+          <textarea spellcheck="false" :placeholder="placeholder" ref="editor" v-model="content" class="editor"
+                    @input="inputContentHandler"
+                    @keydown.tab="keydownTabHandler"
+                    @keydown.enter="contentEnterHandler">
           </textarea>
         </div>
         <div v-show="mode === 'see' || isTwo" class="box markdown-body" v-html="contentHtml" :style="isTwo?'width: 50%':'width: 100%;'">
@@ -148,6 +150,8 @@
         /*if (this.theme && this.theme !== ''){
           import(`../assets/css/markdown-${this.theme}.css`);
         }*/
+
+
         this.content = this.value;
         this.md = md;
         if (typeof window !== 'undefined') {
@@ -183,12 +187,8 @@
           }
           return true;
         },
-        //重新渲染html
-        render(content){
-          if (content == null) return;
-          this.contentHtml = this.md.render(content);
-        },
 
+        //region 工具栏管理
         //初始化工具栏
         initToolBars(){
           for (let toolBarName of this.toolBars){
@@ -241,6 +241,14 @@
           obj.name = name;
           obj.instance = instance;
           return obj;
+        },
+        //endregion
+
+        //region 内容管理
+        //重新渲染html
+        render(content){
+          if (content == null) return;
+          this.contentHtml = this.md.render(content);
         },
 
         // copy mavonEditor/blob/master/src/lib/core/extra-function.js
@@ -333,6 +341,10 @@
           //如果手动输入了清空后续的历史记录内容
           this.contentHistorys.splice(this.contentHistoryIndex+1,this.contentHistorys.length-this.contentHistoryIndex+1);
         },
+        //endregion
+
+
+        //region 事件管理
         //监听回车 实现 有序/无序列表 自动出现
         //找到回车的上一行  判断第一个字符是不是列表开头
         contentEnterHandler(event){
@@ -382,6 +394,8 @@
           event.preventDefault();
           this.insertContent('  ','','',false);
         },
+
+        //endregion
       },
     }
 </script>
