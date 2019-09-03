@@ -210,8 +210,8 @@
          * @param toolBar name instance
          * @param index
          */
-        addToolBar(toolBar,index=-1){
-          if (index===-1){
+        addToolBar(toolBar,index=null){
+          if (index==null){
             this.allToolBars.push(toolBar);
           }else{
             this.allToolBars.splice(index,0,toolBar);

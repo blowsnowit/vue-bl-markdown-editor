@@ -47,6 +47,8 @@ $ npm install vue-bl-markdown-editor --save
 |config|Object|见下面|工具栏的配置|
 
 #### 工具栏
+> 开发工具栏例子查看 src/dev/toolBar
+
 |名称|描述|
 |---|---|
 |bold|粗体|
@@ -75,7 +77,7 @@ $ npm install vue-bl-markdown-editor --save
 
 #### 工具栏配置
 ```javascript
-config = {
+config: {
   // 配置多个表情
   emojis:[{name:'test',datas:['1','2']}],
   // 配置图片上传
@@ -84,12 +86,15 @@ config = {
     callback: (file)=>{return 'url';}
   }
 }
+toolBars:[
+  'bold','italic',...更多
+]
 ```
 
 #### 自定义工具栏
 ```javascript
 let editor = this.$refs.editor;
-let toolBar1 = editor.registerToolBarComponent('demo1',require('./toolBar/Demo1.vue'));
+let toolBar1 = editor.registerToolBarComponent('demo1',require(Example1.vue));
 editor.addToolBar(toolBar1/*,0 插入位置*/);
 ```
 

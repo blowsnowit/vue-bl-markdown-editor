@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <mark-down-editor ref="editor" v-model="content" height="95vh" :config="config"></mark-down-editor>
+    <mark-down-editor ref="editor" v-model="content" height="95vh" :config="config" :toolBars="toolBars"></mark-down-editor>
   </div>
 </template>
 
@@ -19,7 +19,10 @@ export default {
           // 需要传回去上传后的路径
           callback: (file)=>{return 'url';}
         }
-      }
+      },
+      toolBars:[
+        'about','bold','italic'
+      ]
     }
   },
   mounted(){
@@ -27,10 +30,10 @@ export default {
     let editor = this.$refs.editor;
 
     //添加工具栏1
-    let toolBar1 = editor.registerToolBarComponent('demo1',require('./toolBar/Demo1.vue'));
+    let toolBar1 = editor.registerToolBarComponent('demo1',require('./toolBar/Example1.vue'));
     editor.addToolBar(toolBar1);
     //添加工具栏2
-    let toolBar2 = editor.registerToolBarComponent('demo2',require('./toolBar/Demo2.vue'));
+    let toolBar2 = editor.registerToolBarComponent('demo2',require('./toolBar/Example2.vue'));
     editor.addToolBar(toolBar2);
   },
 }

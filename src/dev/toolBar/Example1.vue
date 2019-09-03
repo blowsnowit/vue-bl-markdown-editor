@@ -1,6 +1,8 @@
+<!--点击测试例子-->
+
 <template>
     <div class="Demo1" @click="onClick">
-        DEMO1
+      Ex1
     </div>
 </template>
 
