@@ -4,6 +4,8 @@
 
 > 一个基于markdown-it 高度可扩展的vue编辑器组件
 
+> 优势： 可完全自定义工具栏功能，markdown-it插件调用等
+
 > [演示站](http://markdown-editor.bload.cn/html/)
 
 ![UTOOLS1567330095009.png](https://i.loli.net/2019/09/01/9SZmIP7uiYKkBta.png)
