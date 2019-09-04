@@ -24,8 +24,11 @@ module.exports = {
       {
         test: /\.css$/,
         use: extractCSS.extract({
-          fallback: "vue-style-loader",
-          use: "css-loader"
+          fallback: "style-loader",
+          use: [
+            "css-loader",
+            "vue-style-loader"
+          ]
         })
         // use: [
         //   'vue-style-loader',

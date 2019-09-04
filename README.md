@@ -20,7 +20,6 @@ $ npm install vue-bl-markdown-editor --save
     // import with ES6
     import Vue from 'vue'
     import MarkDownEditor from 'vue-bl-markdown-editor'
-    import 'vue-bl-markdown-editor/dist/css/main.css'
     // use
     Vue.use(MarkDownEditor);
     new Vue({

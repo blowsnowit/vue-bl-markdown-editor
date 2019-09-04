@@ -1,7 +1,7 @@
 {
   "name": "vue-bl-markdown-editor",
   "description": "一个基于markdown-it高度可扩展的vue编辑器组件",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "author": "blowsnow",
   "license": "MIT",
   "private": false,
@@ -64,6 +64,7 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
+    "style-loader": "^1.0.0",
     "url-loader": "^0.5.8",
     "vue": "^2.5.11",
     "vue-loader": "^13.0.5",
