@@ -37,13 +37,13 @@
 
 <script type="text/ecmascript-6">
   import Vue from 'vue'
-  import 'github-markdown-css'
+
 
   import md from './lib/Markdown'
   import {
     scrollLink
   } from './lib/MarkdownFunction'
-  import 'highlight.js/styles/atom-one-dark.css'
+
 
   //工具栏
   const toolBars = [
@@ -102,6 +102,10 @@
           type: String,
           default: 'github'
         },
+        codeStyle:{   //主题色,允许空 加载自己的样式
+          type: String,
+          default: 'atom-one-dark'
+        },
         toolBars:{  //允许显示的控件
           type: Array,
           default: ()=>toolBars
@@ -159,10 +163,12 @@
       },
       created(){
         //引入样式
-        /*if (this.theme && this.theme !== ''){
-          import(`../assets/css/markdown-${this.theme}.css`);
-        }*/
-
+        if (this.theme && this.theme === 'github'){
+          require('github-markdown-css');
+        }
+        if (this.codeStyle && this.codeStyle !== ''){
+          require(`highlight.js/styles/${this.codeStyle}.css`)
+        }
 
         this.content = this.value;
         this.md = md;

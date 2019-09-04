@@ -12,7 +12,7 @@ export const scrollLink = (event, who,editor,preview) => {
       preFlag = false;
       return;
     }
-    console.log(who,radio,preview.scrollHeight,editor.scrollHeight);
+    // console.log(who,radio,preview.scrollHeight,editor.scrollHeight);
     editor.scrollTop = Math.round(preview.scrollTop * radio);
     return;
   }
@@ -23,7 +23,7 @@ export const scrollLink = (event, who,editor,preview) => {
       preFlag = false;
       return;
     }
-    console.log(who,radio);
+    // console.log(who,radio);
     preview.scrollTop = Math.round( editor.scrollTop / radio);
     return;
   }
