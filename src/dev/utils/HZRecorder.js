@@ -158,7 +158,7 @@ HZRecorder.throwError = function (message) {
   throw new function () { this.toString = function () { return message; } }
 }
 //是否支持录音
-HZRecorder.canRecording = (navigator.mediaDevices.getUserMedia != null);
+HZRecorder.canRecording = (navigator.mediaDevices && navigator.mediaDevices.getUserMedia != null);
 //获取录音机
 HZRecorder.get = function (callback, config) {
   if (callback) {
