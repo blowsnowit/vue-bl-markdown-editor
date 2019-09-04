@@ -8,10 +8,14 @@ class RecorderUtil {
   }
 
   start() {
-    HZRecorder.get((rec)=>{
-      this.recorder = rec;
-      this.recorder.start();
-    });
+    return new Promise(resolve => {
+      HZRecorder.get((rec)=>{
+        this.recorder = rec;
+        this.recorder.start();
+        resolve();
+      });
+    })
+
   }
 
   stop() {
