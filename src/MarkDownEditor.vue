@@ -98,14 +98,14 @@
             return {};
           }
         },
-        theme:{   //主题色,允许空 加载自己的样式
-          type: String,
-          default: 'github'
-        },
-        codeStyle:{   //主题色,允许空 加载自己的样式
-          type: String,
-          default: 'atom-one-dark'
-        },
+        // theme:{   //主题色,允许空 加载自己的样式
+        //   type: String,
+        //   default: 'github'
+        // },
+        // codeStyle:{   //主题色,允许空 加载自己的样式
+        //   type: String,
+        //   default: 'atom-one-dark'
+        // },
         toolBars:{  //允许显示的控件
           type: Array,
           default: ()=>toolBars
@@ -162,13 +162,6 @@
         }
       },
       created(){
-        //引入样式
-        if (this.theme && this.theme === 'github'){
-          require('github-markdown-css');
-        }
-        if (this.codeStyle && this.codeStyle !== ''){
-          require(`highlight.js/styles/${this.codeStyle}.css`)
-        }
 
         this.content = this.value;
         this.md = md;

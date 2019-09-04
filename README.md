@@ -35,6 +35,14 @@ $ npm install vue-bl-markdown-editor --save
 <!--本组件使用font-awesome字体图标库，请于index.html提前引入-->
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 ```
+### 样式
+```javascript
+//引用github样式
+import('github-markdown-css');
+//引用高亮代码块样式
+import('highlight.js/styles/atom-one-dark.css');
+```
+
 
 ### 配置
 |名称|类型|默认值|描述|
@@ -48,8 +56,8 @@ $ npm install vue-bl-markdown-editor --save
 |toolBars|Array|见下面|工具栏,排序和显示|
 |config|Object|见下面|工具栏的配置|
 |isSyncScroll|Boolean|true|是否同步滚动|
-|theme|String|github|主题样式,空自行设置主题色|
-|codeStyle|String|atom-one-dark|代码块样式,空自行设置样式，更多查看 https://highlightjs.org/ |
+
+
 
 #### 工具栏
 > 开发工具栏例子查看 src/dev/toolBar
