@@ -6,6 +6,7 @@
 
 <script>
 import http from './utils/axios';
+
 export default {
   name: 'app',
   data() {
@@ -166,6 +167,10 @@ export default {
         picture:{
           // 需要传回去上传后的路径
           uploadCallback: this.upload
+        },
+        audio:{
+          // 需要传回去上传后的路径
+          uploadCallback: this.upload
         }
       },
       // toolBars:[
@@ -176,27 +181,48 @@ export default {
   mounted(){
     console.log(this.$refs.editor);
     let editor = this.$refs.editor;
+    editor.md.use(require('markdown-it-html5-embed'),{
+      html5embed: {
+        useImageSyntax: true, // Enables video/audio embed with ![]() syntax (default)
+        useLinkSyntax: true,   // Enables video/audio embed with []() syntax
+        attributes: {
+          'audio': 'width="320" height="30" controls class="audioplayer"',
+          'video': 'width="320" height="240" class="audioplayer" controls'
+        },
+        isAllowedHttp: true
+      },
 
+    });
+    console.log(editor.md);
     //添加工具栏1
     let toolBar1 = editor.registerToolBarComponent('demo1',require('./toolBar/Example1.vue'));
     editor.addToolBar(toolBar1);
     //添加工具栏2
     let toolBar2 = editor.registerToolBarComponent('demo2',require('./toolBar/Example2.vue'));
     editor.addToolBar(toolBar2);
+
+    //添加录音工具栏
+    let audio = editor.registerToolBarComponent('audio',require('./toolBar/Audio.vue'));
+    editor.addToolBar(audio);
   },
   methods: {
     upload(file,from) {
       console.log('upload',file);
       let data = new FormData();
-      data.append('smfile',file);
+      data.append('file',file);
       //请自行解决跨域问题
-      //此处仅限测试使用
-      return new Promise(resolve => {
+      //此处仅限测试使用(1小时自动删除文件，请勿非测试使用)
+      return new Promise((resolve,reject) => {
         http.requestPost({
-          api: "https://sm.ms/api/upload",
+          api: "http://file.bload.cn:8099/api/upload",
           param: data
         }).then(response=>{
-          resolve({url: response.data.url,name: response.data.filename});
+          if (response.code === 1){
+            resolve({url: "http://file.bload.cn:8099/"+response.url,name: response.filename});
+          }else{
+            alert('上传失败');
+            reject(response.data);
+          }
         })
       })
     }

@@ -105,7 +105,7 @@
         },
 
         uploadFile(file,from){
-          this.config.uploadCallback(file,file).then(data=>{
+          this.config.uploadCallback(file,from).then(data=>{
             console.log('上传完毕回调',data);
             this.onClick(data.name,data.url);
           });
