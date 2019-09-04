@@ -195,7 +195,7 @@ HZRecorder.get = function (callback, config) {
           }
         });
     } else {
-      HZRecorder.throwErr('当前浏览器不支持录音功能。'); return;
+      HZRecorder.throwError('当前浏览器不支持录音功能。'); return;
     }
   }
 }
