@@ -6,9 +6,6 @@
 
 <script>
 import http from './utils/axios';
-import('github-markdown-css');
-import('highlight.js/styles/atom-one-dark.css');
-
 export default {
   name: 'app',
   data() {

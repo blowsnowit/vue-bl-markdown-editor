@@ -34,13 +34,11 @@ $ npm install vue-bl-markdown-editor --save
 ```html
 <!--本组件使用font-awesome字体图标库，请于index.html提前引入-->
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-```
-### 样式
-```javascript
-//引用github样式
-import('github-markdown-css');
-//引用高亮代码块样式
-import('highlight.js/styles/atom-one-dark.css');
+<!--代码块样式，更多查看 https://highlightjs.org -->
+<link href="//cdn.bootcss.com/highlight.js/9.14.1/styles/atom-one-dark.min.css" rel="stylesheet">
+<!--编辑器主题颜色-->
+<link href="//cdn.bootcss.com/github-markdown-css/3.0.1/github-markdown.min.css" rel="stylesheet">
+
 ```
 
 
