@@ -8,7 +8,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import RecorderUtil from "../utils/RecorderUtil";
+  import HZRecorder from "../utils/HZRecorder";
 
     export default {
         name: "Audio",
@@ -17,7 +17,9 @@
           parent: null,
 
           isStart: false,
-          config: {}
+          config: {},
+
+          recorder: null
         }
       },
       created(){
@@ -28,13 +30,18 @@
           this.parent.insertContent('![',name,']('+url+')');
         },
         start() {
-          this.isStart = true;
-          RecorderUtil.start();
+          HZRecorder.get((rec)=>{
+            this.isStart = true;
+            this.recorder = rec;
+            this.recorder.start();
+            this.recorder.onStop = this.onStop;
+          });
         },
         stop(){
+          this.recorder.stop();
+        },
+        onStop(blob){
           this.isStart = false;
-          RecorderUtil.stop();
-          let blob = RecorderUtil.blob;
           let file = new File([blob], 'audio.wav', {type: blob.type});
           this.uploadFile(file);
         },

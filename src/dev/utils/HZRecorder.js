@@ -1,6 +1,6 @@
 //兼容
 window.URL = window.URL || window.webkitURL;
-navigator.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+// navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
 let HZRecorder = function (stream, config) {
   config = config || {};
@@ -11,26 +11,16 @@ let HZRecorder = function (stream, config) {
   let audioInput = context.createMediaStreamSource(stream);
   let createScript = context.createScriptProcessor || context.createJavaScriptNode;
   let recorder = createScript.apply(context, [4096, 1, 1]);
+  let mediaRecorder = new MediaRecorder(stream);
+  let blob = null;
+  let onStop = null;
 
   let audioData = {
-    size: 0          //录音文件长度
-    , buffer: []     //录音缓存
-    , inputSampleRate: context.sampleRate    //输入采样率
+    inputSampleRate: context.sampleRate    //输入采样率
     , inputSampleBits: 16       //输入采样数位 8, 16
     , outputSampleRate: config.sampleRate    //输出采样率
     , oututSampleBits: config.sampleBits       //输出采样数位 8, 16
-    , input: function (data) {
-      this.buffer.push(new Float32Array(data));
-      this.size += data.length;
-    }
-    , compress: function () { //合并压缩
-      //合并
-      let data = new Float32Array(this.size);
-      let offset = 0;
-      for (let i = 0; i < this.buffer.length; i++) {
-        data.set(this.buffer[i], offset);
-        offset += this.buffer[i].length;
-      }
+    , compress: function (data) { //合并压缩  data 为 buffer
       //压缩
       let compression = parseInt(this.inputSampleRate / this.outputSampleRate);
       let length = data.length / compression;
@@ -43,14 +33,13 @@ let HZRecorder = function (stream, config) {
       }
       return result;
     }
-    , encodeWAV: function () {
+    , encodeWAV: function (inBuffer) {
       let sampleRate = Math.min(this.inputSampleRate, this.outputSampleRate);
       let sampleBits = Math.min(this.inputSampleBits, this.oututSampleBits);
-      let bytes = this.compress();
+      let bytes = this.compress(inBuffer);
       let dataLength = bytes.length * (sampleBits / 8);
       let buffer = new ArrayBuffer(44 + dataLength);
       let data = new DataView(buffer);
-
       let channelCount = 1;//单声道
       let offset = 0;
 
@@ -105,21 +94,38 @@ let HZRecorder = function (stream, config) {
     }
   };
 
+
   //开始录音
   this.start = function () {
-    audioInput.connect(recorder);
-    recorder.connect(context.destination);
+    if (mediaRecorder.state === "recording") {
+      mediaRecorder.stop();
+    }
+    mediaRecorder.start();
+    console.log(mediaRecorder.state);
   }
 
   //停止
   this.stop = function () {
-    recorder.disconnect();
+    mediaRecorder.stop();
   }
 
   //获取音频文件
   this.getBlob = function () {
-    this.stop();
-    return audioData.encodeWAV();
+    console.log(this.blob);
+    return new Promise(resolve => {
+      resolve(this.blob)
+      // return;
+      // //转换blob为 buffer
+      // let reader = new FileReader();
+      // //byte为blob对象
+      // reader.readAsArrayBuffer(this.blob);
+      // reader.onload= ()=>{
+      //   console.log(reader.result);
+      //   let buffer = new Uint8Array(reader.result);
+      //   console.log('转换数据',buffer);
+      //   resolve(audioData.encodeWAV(buffer));
+      // }
+    })
   }
 
   //回放
@@ -127,29 +133,18 @@ let HZRecorder = function (stream, config) {
     audio.src = window.URL.createObjectURL(this.getBlob());
   }
 
-  //上传
-  /*this.upload = function (url, callback) {
-    let fd = new FormData();
-    fd.append("audioData", this.getBlob());
-    let xhr = new XMLHttpRequest();
-    if (callback) {
-      xhr.upload.addEventListener("progress", function (e) {
-        callback('uploading', e);
-      }, false);
-      xhr.addEventListener("load", function (e) {
-        callback('ok', e);
-      }, false);
-      xhr.addEventListener("error", function (e) {
-        callback('error', e);
-      }, false);
-      xhr.addEventListener("abort", function (e) {
-        callback('cancel', e);
-      }, false);
-    }
-    xhr.open("POST", url);
-    xhr.send(fd);
-  }*/
+  mediaRecorder.onstop  = e=>{
+    console.log('onstop ',e);
+    this.getBlob().then((blob)=>{
+      console.log('转换完毕数据',blob);
+      this.onStop(blob);
+    })
+  }
 
+  mediaRecorder.ondataavailable = e=>{
+    this.blob = e.data;
+    console.log('数据采集',this.blob);
+  }
   //音频采集
   recorder.onaudioprocess = function (e) {
     audioData.input(e.inputBuffer.getChannelData(0));
@@ -163,41 +158,43 @@ HZRecorder.throwError = function (message) {
   throw new function () { this.toString = function () { return message; } }
 }
 //是否支持录音
-HZRecorder.canRecording = (navigator.getUserMedia != null);
+HZRecorder.canRecording = (navigator.mediaDevices.getUserMedia != null);
 //获取录音机
 HZRecorder.get = function (callback, config) {
   if (callback) {
-    if (navigator.getUserMedia) {
-      navigator.getUserMedia(
-        { audio: true } //只启用音频
-        , function (stream) {
-          let rec = new HZRecorder(stream, config);
-          callback(rec);
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream=>{
+        let rec = new HZRecorder(stream, config);
+        callback(rec);
+      }).catch(error=>{
+        console.log('申请',error);
+        switch (error.code || error.name) {
+          case 'PERMISSION_DENIED':
+          case 'PermissionDeniedError':
+          case 'NotAllowedError':
+            HZRecorder.throwError('用户拒绝提供录音权限。');
+            break;
+          case 'NOT_SUPPORTED_ERROR':
+          case 'NotSupportedError':
+            HZRecorder.throwError('浏览器不支持硬件设备。');
+            break;
+          case 'MANDATORY_UNSATISFIED_ERROR':
+          case 'MandatoryUnsatisfiedError':
+            HZRecorder.throwError('无法发现指定的硬件设备。');
+            break;
+          default:
+            HZRecorder.throwError('无法打开麦克风。异常信息:' + (error.code || error.name));
+            break;
         }
-        , function (error) {
-          switch (error.code || error.name) {
-            case 'PERMISSION_DENIED':
-            case 'PermissionDeniedError':
-            case 'NotAllowedError':
-              HZRecorder.throwError('用户拒绝提供录音权限。');
-              break;
-            case 'NOT_SUPPORTED_ERROR':
-            case 'NotSupportedError':
-              HZRecorder.throwError('浏览器不支持硬件设备。');
-              break;
-            case 'MANDATORY_UNSATISFIED_ERROR':
-            case 'MandatoryUnsatisfiedError':
-              HZRecorder.throwError('无法发现指定的硬件设备。');
-              break;
-            default:
-              HZRecorder.throwError('无法打开麦克风。异常信息:' + (error.code || error.name));
-              break;
-          }
-        });
+      })
     } else {
       HZRecorder.throwError('当前浏览器不支持录音功能。'); return;
     }
   }
 }
+
+
+
+
 
 export  default HZRecorder;
