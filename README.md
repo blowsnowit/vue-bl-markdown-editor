@@ -3,8 +3,11 @@
 # vue-bl-markdown-editor
 
 > 一个基于markdown-it 高度可扩展的vue编辑器组件
+
 > 允许提供插槽自定义工具栏
+
 > 允许通过动态注册组件，允许插入工具栏指定位置
+
 > 优势： 可完全自定义工具栏功能，markdown-it插件调用等
 
 > [演示站](http://markdown-editor.bload.cn/html/)
