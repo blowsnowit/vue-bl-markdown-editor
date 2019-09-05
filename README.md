@@ -3,7 +3,8 @@
 # vue-bl-markdown-editor
 
 > 一个基于markdown-it 高度可扩展的vue编辑器组件
-
+> 允许提供插槽自定义工具栏
+> 允许通过动态注册组件，允许插入工具栏指定位置
 > 优势： 可完全自定义工具栏功能，markdown-it插件调用等
 
 > [演示站](http://markdown-editor.bload.cn/html/)
@@ -128,6 +129,14 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 |---|---|---|
 |input|内容|输入内容|
 |ready|markdownit|加载完毕|
+
+### 插槽
+|名称|描述|
+|---|---|---|
+|tool-bar-left-head|工具栏左侧头部插槽|
+|tool-bar-left-foot|工具栏左侧尾部插槽|
+|tool-bar-right-head|工具栏右侧头部插槽|
+|tool-bar-right-foot|工具栏右侧尾部插槽|
 
 ### 高级扩展
 - 允许自行调用markdownit 注册插件 （从ready事件中获取/直接从ref中获取）
