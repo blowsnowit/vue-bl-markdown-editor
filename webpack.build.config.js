@@ -39,6 +39,7 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
+          extractCSS: true,
           loaders: {
           }
           // other vue-loader options go here
@@ -97,7 +98,9 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: false,
       compress: {
-        warnings: false
+        warnings: false,
+        drop_debugger: true,
+        drop_console: true
       }
     }),
     new webpack.LoaderOptionsPlugin({
