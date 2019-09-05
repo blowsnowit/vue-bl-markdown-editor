@@ -5,7 +5,7 @@
       <div class="mark-down-name" @mouseenter="close=false">
         SEx2
         <div class="tool-bar-box mark-down-form-box" @click="onClick" :style="close?'display: none;':''">
-          简单的hover显示,点我试试
+          插槽hover测试例子,点我试试
         </div>
       </div>
     </div>

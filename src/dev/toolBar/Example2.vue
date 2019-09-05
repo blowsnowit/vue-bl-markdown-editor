@@ -5,7 +5,7 @@
       <div class="mark-down-name" @mouseenter="close=false">
         Ex2
         <div class="tool-bar-box mark-down-form-box" @click="onClick" :style="close?'display: none;':''">
-          简单的hover显示,点我试试
+          动态插入hover测试例子,点我试试
         </div>
       </div>
     </div>
