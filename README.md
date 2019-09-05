@@ -135,7 +135,7 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 
 ### 插槽
 |名称|描述|
-|---|---|---|
+|---|---|
 |tool-bar-left-head|工具栏左侧头部插槽|
 |tool-bar-left-foot|工具栏左侧尾部插槽|
 |tool-bar-right-head|工具栏右侧头部插槽|
