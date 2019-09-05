@@ -23,6 +23,8 @@ export default {
   data() {
     return {
       content: "@[toc](目录)\n" +
+        "\n"+
+        "![音乐测试](http://fs.open.kugou.com/7f314cfc3450b85514189456b6d099dc/5d70c935/G124/M00/18/05/HIcBAFplpIuAN0uzAEgwLJLW7BA236.mp3)"+
         "\n" +
         "# vue-bl-markdown-editor\n" +
         "\n" +
