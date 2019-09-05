@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <mark-down-editor ref="editor" v-model="content" height="95vh" :config="config">
+    <div class="head-box">
+      <h1>vue-bl-markdown-editor</h1>
+      <h3>开源在线 Markdown 编辑器</h3>
+      <a href="https://gitee.com/bl_it/vue-bl-markdown-editor/stargazers"><img src="https://gitee.com/bl_it/vue-bl-markdown-editor/badge/star.svg?theme=dark" alt="star"></a>
+      <iframe src="https://ghbtns.com/github-btn.html?user=blowsnowit&amp;repo=vue-bl-markdown-editor&amp;type=star&amp;count=true" frameborder="0" scrolling="0" width="80px" height="20px"></iframe>
+    </div>
+    <mark-down-editor ref="editor" v-model="content" height="70vh" :config="config">
       <slot-example1 slot="tool-bar-left-head" :parent="parent"></slot-example1>
       <slot-example2 slot="tool-bar-left-foot" :parent="parent"></slot-example2>
     </mark-down-editor>
@@ -269,5 +275,19 @@ export default {
 </script>
 
 <style>
-
+body{
+  margin: 0;
+}
+.head-box{
+  text-align: center;
+  background: linear-gradient(90deg, #ade8ff, #9bb9eaf5,#9bb9eaf5,#ade8ff);
+  padding: 10px;
+  color: #fff;
+}
+.mark-down-editor{
+  height: 70vh;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+}
 </style>
