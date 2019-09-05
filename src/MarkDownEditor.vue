@@ -539,4 +539,22 @@
 .mark-down-render-box{
 
 }
+
+/*滚动条美化*/
+.mark-down-editor ::-webkit-scrollbar-track-piece { /*滚动条凹槽的颜色，还可以设置边框属性*/
+  background-color:#e5e5e5;
+}
+.mark-down-editor ::-webkit-scrollbar {/*滚动条的宽度*/
+  width: 8px;
+  height: 9px;
+}
+.mark-down-editor ::-webkit-scrollbar-thumb {/*滚动条的设置*/
+  background-color: #b7b7b7;
+  background-clip: padding-box;
+  min-height: 50px;
+  border-radius: 20%;
+}
+.mark-down-editor ::-webkit-scrollbar-thumb:hover {
+  background-color:#a1a1a1;
+}
 </style>
