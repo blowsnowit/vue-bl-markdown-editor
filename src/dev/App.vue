@@ -279,7 +279,7 @@ body{
   margin: 0;
 }
 #app{
-  background: linear-gradient(90deg, #ade8ff, #9bb9eaf5,#9bb9eaf5,#ade8ff);
+  background: linear-gradient(to top,#ade8ff,#9bb9eaf5);
 }
 .head-box{
   text-align: center;
