@@ -2,9 +2,12 @@
     <div class="mark-down-editor"  :style="'height: '+getHeightStr">
       <div class="tool-bar" v-show="isShowToolBar">
         <span v-show="allToolBars.length<=0">工具栏初始化ing</span>
+        <slot name="tool-bar-left-head"></slot>
         <span v-for="(toolBar,index) in allToolBars" :key="index" :ref="toolBar.name"></span>
+        <slot name="tool-bar-left-foot"></slot>
         <div style="flex: 1;"></div>
         <div class="tool-right" v-show="isShowToolBarRight">
+          <slot name="tool-bar-right-head"></slot>
           <!--预览/编辑模式-->
           <span class="active" v-if="mode === 'edit'" @click.prevent="mode = 'see'"><i class="fa fa-eye-slash" title="编辑"></i> </span>
           <span v-else-if="mode === 'see'" @click.prevent="mode = 'edit'"><i class="fa fa-eye" title="预览"></i></span>
@@ -12,7 +15,7 @@
             <!--双栏模式 pc显示-->
             <span @click.prevent="isTwo = !isTwo"><i class="fa fa-columns" title="双栏"></i> </span>
           </template>
-
+          <slot name="tool-bar-right-foot"></slot>
         </div>
       </div>
       <div class="container" :class="isTwo?'':'container-column'">
