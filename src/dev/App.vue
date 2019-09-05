@@ -278,9 +278,11 @@ export default {
 body{
   margin: 0;
 }
+#app{
+  background: linear-gradient(90deg, #ade8ff, #9bb9eaf5,#9bb9eaf5,#ade8ff);
+}
 .head-box{
   text-align: center;
-  background: linear-gradient(90deg, #ade8ff, #9bb9eaf5,#9bb9eaf5,#ade8ff);
   padding: 10px;
   color: #fff;
 }
