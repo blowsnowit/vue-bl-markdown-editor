@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <mark-down-editor ref="editor" v-model="content" height="95vh" :config="config">
-      <slot-example slot="tool-bar-left-foot" :parent="parent"></slot-example>
+      <slot-example1 slot="tool-bar-left-head" :parent="parent"></slot-example1>
+      <slot-example2 slot="tool-bar-left-foot" :parent="parent"></slot-example2>
     </mark-down-editor>
   </div>
 </template>
 
 <script>
 import http from './utils/axios';
-import SlotExample from "./toolBar/SlotExample";
+import SlotExample1 from "./toolBar/SlotExample1";
+import SlotExample2 from "./toolBar/SlotExample2";
 export default {
   name: 'app',
-  components: {SlotExample},
+  components: {SlotExample2, SlotExample1},
   data() {
     return {
       content: "",
