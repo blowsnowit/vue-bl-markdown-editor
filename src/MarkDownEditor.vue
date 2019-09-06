@@ -436,6 +436,7 @@
   line-height: 35px;
 }
 .mark-down-editor .tool-bar>div{
+  height: 35px;
   margin-right: 10px;
   cursor: pointer;
 }
