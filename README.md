@@ -12,7 +12,7 @@
 
 > [演示站](http://markdown-editor.bload.cn/html/)
 
-![UTOOLS1567330095009.png](https://i.loli.net/2019/09/01/9SZmIP7uiYKkBta.png)
+![UTOOLS1567330095009.png](https://images.gitee.com/uploads/images/2019/0909/094047_68a7f493_1130434.png)
 
 ###  安装
 ```
@@ -163,7 +163,7 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 > 必须运行在 https 下 测试可以正常运行
 - [x] 自定义录音工具栏组件(*) 
 - [ ] 自定义画板工具栏组件
-- [ ] 自定义模板
+- [ ] 自定义模板工具栏组件
 - [ ] 本地图片粘贴上传不支持（待解决）
 ## 测试
 - [x] 自定义工具栏
@@ -179,4 +179,4 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 #### 希望大家一起开发好用的工具栏吧
 
 ## 赞助
-![UTOOLS1567434353534.png](https://i.loli.net/2019/09/02/vrJgXxpKmnHBLyD.png)
+![UTOOLS1567434353534.png](https://images.gitee.com/uploads/images/2019/0909/094047_e4635129_1130434.png)
