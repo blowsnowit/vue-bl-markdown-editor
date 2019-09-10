@@ -17,7 +17,11 @@
           <div>
             <button style="width: 100%;" @click="onClick(name,url)">确认</button>
           </div>
-
+          <div style="display: flex;flex-wrap: wrap;">
+            <div v-for="(pic,index) in picList" :key="index" title="点击删除" @click="clearPic(pic)">
+              <img  style="width: 100%;max-width: 100px;" :src="pic" alt="">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -35,8 +39,16 @@
           name: null,
           url: null,
 
-          config: null
+          config: null,
+          picList: []
         }
+      },
+      watch:{
+          'parent.content'(val){
+            //解析图片
+            this.resolvingPicList(val);
+
+          }
       },
       created(){
         this.config = this.parent.config.picture;
@@ -47,6 +59,8 @@
         document.addEventListener('drop', e=>{
           this.onDrag(e)
         })
+
+        this.resolvingPicList(this.parent.content);
       },
       methods: {
         onClick(name,url) {
@@ -109,6 +123,33 @@
             console.log('上传完毕回调',data);
             this.onClick(data.name,data.url);
           });
+        },
+
+
+
+        //解析内容获取图片列表,发现 貌似语音也是用的这个解析
+        resolvingPicList(val){
+          if (this.config!=null && this.config.resolving === false) return;
+          let parses = this.parent.md.parse(val, {
+            references: {}
+          });
+          let picListSet = new Set();
+          parses.forEach(parse=>{
+            if (parse.type === "inline" && parse.children!=null){
+              parse.children.forEach(img=>{
+                if (img.tag === "img"){
+                  picListSet.add(img.attrs[0][1]);
+                }
+              })
+            }
+          })
+          this.picList = [...picListSet];
+        },
+        clearPic(pic){
+          let content = this.parent.content;
+          let reg = new RegExp('\\!\\[(.*?)\\]\\('+pic+'\\)','g');
+          content = content.replace(reg,'');
+          this.parent.content = content;
         }
       },
     }

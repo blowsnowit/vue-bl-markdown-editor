@@ -8,7 +8,10 @@
     </div>
     <mark-down-editor ref="editor" v-model="content" height="70vh" :config="config">
       <slot-example1 slot="tool-bar-left-head" :parent="parent"></slot-example1>
-      <slot-example2 slot="tool-bar-left-foot" :parent="parent"></slot-example2>
+      <template slot="tool-bar-left-foot">
+        <slot-example2 :parent="parent"></slot-example2>
+        <!--<my-canvas :parent="parent"></my-canvas>-->
+      </template>
     </mark-down-editor>
   </div>
 </template>
@@ -17,9 +20,10 @@
 import http from './utils/axios';
 import SlotExample1 from "./toolBar/SlotExample1";
 import SlotExample2 from "./toolBar/SlotExample2";
+import MyCanvas from "./toolBar/MyCanvas";
 export default {
   name: 'app',
-  components: {SlotExample2, SlotExample1},
+  components: {MyCanvas, SlotExample2, SlotExample1},
   data() {
     return {
       content: "@[toc](目录)\n" +
@@ -209,7 +213,9 @@ export default {
         // 配置图片上传
         picture:{
           // 需要传回去上传后的路径
-          uploadCallback: this.upload
+          uploadCallback: this.upload,
+          resolving: true
+
         },
         audio:{
           // 需要传回去上传后的路径

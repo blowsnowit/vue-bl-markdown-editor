@@ -102,11 +102,13 @@ config: {
     // 需要传回去上传后的路径
     // from paste/drag/upload 粘贴/拖拽/上传
     // 回调 异步请使用promise 案例看 src/dev/App.vue 
-    callback: (file,from)=>{
+    uploadCallback: (file,from)=>{
       return new Promise(resolve => {
         resolve({name:'',url: ''});
       });
-    }
+    },
+    // 是否解析图片列表
+    resolving: true
   }
 }
 toolBars:[
@@ -162,8 +164,6 @@ editor.addToolBar(toolBar1/*,0 插入位置*/);
 
 > 必须运行在 https 下 测试可以正常运行
 - [x] 自定义录音工具栏组件(*) 
-- [ ] 自定义画板工具栏组件
-- [ ] 自定义模板工具栏组件
 - [ ] 本地图片粘贴上传不支持（待解决）
 ## 测试
 - [x] 自定义工具栏
