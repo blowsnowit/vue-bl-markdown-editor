@@ -40,15 +40,22 @@
                 '😨','😩','😬','😰','😱','😳','😵',
               ]
             }
-          ]
+          ],
+
+          config: null
         }
       },
       created(){
         //从配置文件中合并表情
-        let emojis = this.parent.config.emojis;
+        this.config = this.parent.config.emojis;
+        if (this.config.isCover){  //覆盖
+          this.emojis = [];
+        }
+        let emojis = this.config.more;
         if (emojis!==undefined && emojis.length>0){
           this.emojis = [...this.emojis,...emojis];
         }
+        this.tabName = this.emojis[0].name;
       },
       methods: {
         onClick(emoji) {

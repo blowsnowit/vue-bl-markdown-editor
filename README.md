@@ -95,8 +95,12 @@ $ npm install vue-bl-markdown-editor --save
 #### 工具栏配置
 ```javascript
 config: {
-  // 配置多个表情
-  emojis:[{name:'test',datas:['1','2']}],
+  emojis:{
+    // 配置多个表情
+    more:[{name:'test',datas:['1','2']}],
+    //是否覆盖默认的
+    isCover: true
+  },
   // 配置图片上传
   picture:{
     // 需要传回去上传后的路径
