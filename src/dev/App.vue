@@ -212,7 +212,7 @@ export default {
         emojis:{
           more: [{name:'test',datas:['表情1','表情2']}],
           //是否覆盖默认的
-          isCover: true
+          isCover: false
         },
         // 配置图片上传
         picture:{
