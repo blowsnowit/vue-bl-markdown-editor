@@ -304,4 +304,7 @@ body{
   margin: 0 auto;
   padding: 20px;
 }
+.mark-down-editor .box{
+  padding: 10px 20px;
+}
 </style>

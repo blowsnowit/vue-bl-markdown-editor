@@ -93,7 +93,9 @@
           isHistoryDo: false,
           isMobile: false,
           mode: 'edit',
-          isTwo: true
+          isTwo: true,
+
+          lastInputTime: 0
         }
       },
       props:{
@@ -167,7 +169,6 @@
             this.contentHistorys.push(val);
             this.contentHistoryIndex = this.contentHistorys.length - 1;  //指向最后
           }
-
         }
       },
       created(){
@@ -358,6 +359,7 @@
         },
 
         inputContentHandler(event){
+          this.lastInputTime = new Date().getTime();
           //如果手动输入了清空后续的历史记录内容
           this.contentHistorys.splice(this.contentHistoryIndex+1,this.contentHistorys.length-this.contentHistoryIndex+1);
         },
