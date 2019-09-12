@@ -291,6 +291,7 @@ body{
 }
 #app{
   background: linear-gradient(to top,#ade8ff,#9bb9eaf5);
+  height: 100vh;
 }
 .head-box{
   text-align: center;

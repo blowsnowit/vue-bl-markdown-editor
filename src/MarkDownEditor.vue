@@ -19,13 +19,20 @@
         </div>
       </div>
       <div class="container" :class="isTwo?'':'container-column'">
-        <div v-show="mode === 'edit' || isTwo" class="box" :style="isTwo?'width: 50%':'width: 100%;'">
-          <textarea spellcheck="false" :placeholder="placeholder" ref="editor" v-model="content" class="editor"
-                    @input="inputContentHandler"
-                    @keydown.tab="keydownTabHandler"
-                    @keydown.enter="contentEnterHandler"
-                    @scroll="onScrollEditor">
-          </textarea>
+        <div v-show="mode === 'edit' || isTwo" class="box" :style="isTwo?'width: 50%':'width: 100%;'"
+             ref="editorBox" @scroll="onScrollEditor">
+          <div style="position: relative;">
+            <!--占位符-->
+            <pre class="editor-pre" v-text="content">
+            </pre>
+              <textarea spellcheck="false" :placeholder="placeholder" ref="editor" v-model="content" class="editor"
+                        @input="inputContentHandler"
+                        @keydown.tab="keydownTabHandler"
+                        @keydown.enter="contentEnterHandler"
+                        @keyup.enter="contentEnterUpHandler">
+            </textarea>
+          </div>
+
         </div>
         <div v-show="mode === 'see' || isTwo" class="box markdown-body"
              ref="preview"
@@ -399,8 +406,14 @@
           } else {
             alert('Error: Browser version is too low')
           }
-          this.content = obj.value
+          this.content = obj.value;
           obj.focus();
+
+        },
+        contentEnterUpHandler(){
+          let editorBox = this.$refs.editorBox;
+          //自动滚动
+          editorBox.scrollTop += 25;
         },
         //实现tab缩进
         keydownTabHandler(event){
@@ -410,12 +423,12 @@
         //滚动编辑器事件
         onScrollEditor(event){
           if (!this.isSyncScroll) return;
-          scrollLink(event,'editor',this.$refs.editor,this.$refs.preview);
+          scrollLink(event,'editor',this.$refs.editorBox,this.$refs.preview);
         },
         //滚动预览事件
         onScrollPreview(){
           if (!this.isSyncScroll) return;
-          scrollLink(event,'preview',this.$refs.editor,this.$refs.preview);
+          scrollLink(event,'preview',this.$refs.editorBox,this.$refs.preview);
         }
         //endregion
       },
@@ -513,21 +526,41 @@
   width: 50%;
   height: 100%;
   background: #fff;
+
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .mark-down-editor .container .box.markdown-body{
   overflow: auto;
 }
 .mark-down-editor .container  .editor{
-  width: 99%;
-  height: 99%;
+  width: 100%;
+  height: 100%;
   outline: 0 none;
   border: none !important;
   font-size: 15px;
   line-height: 1.5;
   resize: none;
   font-family: Menlo, "Ubuntu Mono", Consolas, "Courier New", "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
 }
 
+
+.mark-down-editor .container .editor-pre{
+  font-size: 15px;
+  line-height: 1.5;
+  font-family: Menlo, "Ubuntu Mono", Consolas, "Courier New", "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+
+  visibility: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+  margin: 0;
+}
 .markdown-body .hljs-left{
   text-align: left;
 }
