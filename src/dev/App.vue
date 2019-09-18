@@ -290,7 +290,8 @@ body{
   margin: 0;
 }
 #app{
-  background: linear-gradient(to top,#ade8ff,#9bb9eaf5);
+  background: #9bb9eaf5;
+  background: linear-gradient(to top,#ade8ff,#9bb9ea);
   height: 100vh;
 }
 .head-box{
@@ -303,8 +304,5 @@ body{
   width: 90%;
   margin: 0 auto;
   padding: 20px;
-}
-.mark-down-editor .box{
-  padding: 10px 20px;
 }
 </style>

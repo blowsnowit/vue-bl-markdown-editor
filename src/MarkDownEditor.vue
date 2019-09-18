@@ -21,9 +21,10 @@
       <div class="container" :class="isTwo?'':'container-column'">
         <div v-show="mode === 'edit' || isTwo" class="box" :style="isTwo?'width: 50%':'width: 100%;'"
              ref="editorBox" @scroll="onScrollEditor">
-          <div style="position: relative;">
-            <!--占位符-->
-            <pre class="editor-pre" v-text="content">
+          <div class="box-padding">
+            <div style="position: relative;">
+              <!--占位符-->
+              <pre class="editor-pre" v-text="content">
             </pre>
               <textarea spellcheck="false" :placeholder="placeholder" ref="editor" v-model="content" class="editor"
                         @input="inputContentHandler"
@@ -31,15 +32,18 @@
                         @keydown.enter="contentEnterHandler"
                         @keyup.enter="contentEnterUpHandler">
             </textarea>
+            </div>
           </div>
+
 
         </div>
         <div v-show="mode === 'see' || isTwo" class="box markdown-body"
              ref="preview"
-             v-html="contentHtml"
              :style="isTwo?'width: 50%':'width: 100%;'"
              @scroll="onScrollPreview">
+          <div class="box-padding" v-html="contentHtml">
 
+          </div>
         </div>
       </div>
     </div>
@@ -533,6 +537,10 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+.mark-down-editor .container .box .box-padding{
+  padding: 10px;
+}
+
 .mark-down-editor .container .box.markdown-body{
   overflow: auto;
 }
