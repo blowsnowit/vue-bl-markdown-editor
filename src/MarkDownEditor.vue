@@ -22,7 +22,7 @@
         <div v-show="mode === 'edit' || isTwo" class="box" :style="isTwo?'width: 50%':'width: 100%;'"
              ref="editorBox" @scroll="onScrollEditor">
           <div class="box-padding">
-            <div style="position: relative; min-height: 100%;">
+            <div style="position: relative; min-height: 100%;padding: 10px;">
               <!--占位符-->
               <pre class="editor-pre" v-text="content">
             </pre>
