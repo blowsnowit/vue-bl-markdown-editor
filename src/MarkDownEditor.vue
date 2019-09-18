@@ -22,7 +22,7 @@
         <div v-show="mode === 'edit' || isTwo" class="box" :style="isTwo?'width: 50%':'width: 100%;'"
              ref="editorBox" @scroll="onScrollEditor">
           <div class="box-padding">
-            <div style="position: relative;">
+            <div style="position: relative; min-height: 100%;">
               <!--占位符-->
               <pre class="editor-pre" v-text="content">
             </pre>
@@ -539,6 +539,7 @@
 }
 .mark-down-editor .container .box .box-padding{
   padding: 10px;
+  height: 94%;
 }
 
 .mark-down-editor .container .box.markdown-body{
