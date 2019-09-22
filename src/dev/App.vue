@@ -12,6 +12,11 @@
         <slot-example2 :parent="parent"></slot-example2>
         <!--<my-canvas :parent="parent"></my-canvas>-->
       </template>
+
+      <div slot="foot" class="foot">
+        <span>字数：{{content.length}}&nbsp;&nbsp;&nbsp;&nbsp;行数：{{content.split("\n").length}}</span>
+        <span>Power by <a href="https://gitee.com/bl_it/vue-bl-markdown-editor">vue-bl-markdown-editor</a></span>
+      </div>
     </mark-down-editor>
   </div>
 </template>
@@ -258,7 +263,7 @@ export default {
 
     //动态添加录音工具栏
     let audio = editor.registerToolBarComponent('audio',require('./toolBar/Audio.vue'));
-    editor.addToolBar(audio,9);
+    editor.addToolBar(audio);
   },
   methods: {
     upload(file,from) {
@@ -304,5 +309,16 @@ body{
   width: 90%;
   margin: 0 auto;
   padding: 20px;
+}
+.mark-down-editor .foot{
+  box-shadow: 0 0px 3px rgba(0,0,0,0.157), 0 0px 3px rgba(0,0,0,0.227);
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  line-height: 20px;
 }
 </style>

@@ -24,8 +24,8 @@
         </div>
       </div>
       <!--编辑器-->
-      <div class="container" :class="isTwo?'':'container-column'">
-        <div v-show="mode === 'edit' || isTwo" class="box" :style="isTwo?'width: 50%':'width: 100%;'"
+      <div class="container" :class="isTwo?'':'container-column'" @mousemove="mouseMoveEditorHandler" @mouseup="isStarMoveEditor=false">
+        <div v-show="mode === 'edit' || isTwo" class="box" :style="isTwo?'width: 50%;':'width: 100%;'"
              ref="editorBox" @scroll="onScrollEditor">
           <div class="box-padding">
             <div style="position: relative; min-height: 100%;padding: 10px;">
@@ -43,15 +43,23 @@
 
 
         </div>
+
+        <!--拖动控制器-->
+        <div v-show="isTwo" class="middle" @mousedown="mouseDownEditorHandler">
+          ||
+        </div>
+
         <div v-show="mode === 'see' || isTwo" class="box markdown-body"
              ref="preview"
-             :style="isTwo?'width: 50%':'width: 100%;'"
+             :style="isTwo?'flex: 1;':'width: 100%;'"
              @scroll="onScrollPreview">
           <div class="box-padding" v-html="contentHtml">
 
           </div>
         </div>
       </div>
+
+      <slot name="foot"></slot>
     </div>
 </template>
 
@@ -110,7 +118,10 @@
           mode: 'edit',
           isTwo: true,
 
-          lastInputTime: 0
+          lastInputTime: 0,
+
+          isStarMoveEditor: false,
+          starMovePos: null
         }
       },
       props:{
@@ -448,7 +459,29 @@
         onScrollPreview(){
           if (!this.isSyncScroll) return;
           scrollLink(event,'preview',this.$refs.editorBox,this.$refs.preview);
-        }
+        },
+
+        mouseDownEditorHandler(event){
+          this.isStarMoveEditor = true;
+          //记录点击落下的位置
+          this.starMovePos = event
+        },
+        mouseMoveEditorHandler(event){
+          if (!this.isStarMoveEditor){
+            return;
+          }
+          //计算左移或者右移多少像素
+          //左移 编辑器 - 右移 编辑器 +
+          let px = event.screenX - this.starMovePos.screenX;
+
+          console.log('mouseMoveEditorHandler',event);
+          let editorBox = this.$refs.editorBox;
+          editorBox.style.width = (editorBox.offsetWidth + px)+"px";
+          console.log(editorBox.offsetWidth);
+          this.starMovePos = event;
+        },
+
+
         //endregion
       },
     }
@@ -535,6 +568,17 @@
   display: flex;
   height: 100%;
 }
+
+.mark-down-editor .container .middle{
+  width: 10px;
+  cursor: col-resize;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
 .mark-down-editor .container.container-column{
   flex-direction: column;
 }
@@ -615,4 +659,7 @@
 .mark-down-editor ::-webkit-scrollbar-thumb:hover {
   background-color:#a1a1a1;
 }
+
+
+
 </style>
