@@ -1,10 +1,15 @@
 <template>
     <div class="mark-down-editor"  :style="'height: '+getHeightStr">
+      <!--工具栏-->
       <div class="tool-bar" v-show="isShowToolBar">
         <span v-show="allToolBars.length<=0">工具栏初始化ing</span>
+
         <slot name="tool-bar-left-head"></slot>
-        <span v-for="(toolBar,index) in allToolBars" :key="index" :ref="toolBar.name"></span>
+
+        <span v-for="(toolBar,index) in allToolBars" :key="index" :ref="'toolbar_'+toolBar.key"></span>
+
         <slot name="tool-bar-left-foot"></slot>
+
         <div style="flex: 1;"></div>
         <div class="tool-right" v-show="isShowToolBarRight">
           <slot name="tool-bar-right-head"></slot>
@@ -18,6 +23,7 @@
           <slot name="tool-bar-right-foot"></slot>
         </div>
       </div>
+      <!--编辑器-->
       <div class="container" :class="isTwo?'':'container-column'">
         <div v-show="mode === 'edit' || isTwo" class="box" :style="isTwo?'width: 50%':'width: 100%;'"
              ref="editorBox" @scroll="onScrollEditor">
@@ -25,7 +31,7 @@
             <div style="position: relative; min-height: 100%;padding: 10px;">
               <!--占位符-->
               <pre class="editor-pre" v-text="content">
-            </pre>
+              </pre>
               <textarea spellcheck="false" :placeholder="placeholder" ref="editor" v-model="content" class="editor"
                         @input="inputContentHandler"
                         @keydown.tab="keydownTabHandler"
@@ -63,22 +69,27 @@
     'bold', //粗体
     'italic', //斜体
     'header',  //标题
+    'separator',
     'underline', //下划线
     'strikethrough', //中划线
     'thumb-tack',  //标记
     'superscript', //上角标
     'subscript',   //下角标
+    'separator',
     'align-left',  //居左
     'align-center', //居中
     'align-right',  //居右
     'quote-left',  //段落引用
+    'separator',
     'list-ol',     //有序列表
     'list-ul',    //无须列表
+    'separator',
     'link',      //链接
     'picture',   //图片
     'code',      //代码块
     'table',     //表格
     'emoji',
+    'separator',
     'undo',     //上一步
     'repeat',   //下一步
     'trash',    //清空
@@ -218,7 +229,6 @@
         initToolBars(){
           for (let toolBarName of this.toolBars){
             let path = `./toolBar/${toolBarName}.vue`;
-            console.log();
             this.addToolBarByPath(toolBarName,path);
           }
         },
@@ -236,6 +246,7 @@
          * @param index
          */
         addToolBar(toolBar,index=null){
+          toolBar.key = this.allToolBars.length;
           if (index==null){
             this.allToolBars.push(toolBar);
           }else{
@@ -243,7 +254,9 @@
           }
           if(toolBar.instance!==undefined){
             this.$nextTick(()=>{
-              toolBar.instance.$mount(this.$refs[toolBar.name][0]);
+              let key = 'toolbar_'+toolBar.key;
+              console.log(this.$refs[key]);
+              toolBar.instance.$mount(this.$refs[key][0]);
             })
           }
         },

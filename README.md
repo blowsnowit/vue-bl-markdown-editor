@@ -91,7 +91,7 @@ $ npm install vue-bl-markdown-editor --save
 |repeat|下一步|
 |trash|清空|
 |about|关于，希望保留|
-
+|separator|分隔符|
 #### 工具栏配置
 ```javascript
 config: {

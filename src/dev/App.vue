@@ -249,16 +249,16 @@ export default {
 
     });
     console.log(editor.md);
-    //添加工具栏1
+    //动态添加工具栏1
     let toolBar1 = editor.registerToolBarComponent('demo1',require('./toolBar/Example1.vue'));
     editor.addToolBar(toolBar1);
-    //添加工具栏2
+    //动态添加工具栏2
     let toolBar2 = editor.registerToolBarComponent('demo2',require('./toolBar/Example2.vue'));
     editor.addToolBar(toolBar2);
 
-    //添加录音工具栏
+    //动态添加录音工具栏
     let audio = editor.registerToolBarComponent('audio',require('./toolBar/Audio.vue'));
-    editor.addToolBar(audio);
+    editor.addToolBar(audio,9);
   },
   methods: {
     upload(file,from) {
